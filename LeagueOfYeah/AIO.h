@@ -46,10 +46,10 @@ protected:
 	std::vector<IUnit*>	EnemyHeros;
 	IUnit*			Hero;
 	IMenu*			ParentMenu;
-	ISpell2*		Q;
-	ISpell2*		W;
-	ISpell2*		E;
-	ISpell2*		R;
+	static ISpell2*		Q;
+	static ISpell2*		W;
+	static ISpell2*		E;
+	static ISpell2*		R;
 	short			keystate;
 	IUnit*			ComboTarget;
 	bool			SemiManualKey;
