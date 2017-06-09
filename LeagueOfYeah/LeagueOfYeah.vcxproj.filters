@@ -42,6 +42,9 @@
     <ClInclude Include="LeeSin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BlitzCrank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\PluginSDK.cpp">
@@ -54,6 +57,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LeeSin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlitzCrank.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

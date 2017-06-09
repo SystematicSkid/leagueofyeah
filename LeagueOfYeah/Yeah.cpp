@@ -35,17 +35,17 @@ PLUGIN_EVENT(void) OnOrbwalkNonKillableMinion(IUnit* NonKillableMinion)
 
 PLUGIN_EVENT(void) OnGameUpdate()
 {
-
+	ChampSelect->OnGameUpdate();
 }
 
 PLUGIN_EVENT(void) OnRender()
 {
-
+	ChampSelect->OnRender();
 }
 
 PLUGIN_EVENT(void) OnSpellCast(CastedSpell const& Args)
 {
-
+	ChampSelect->OnSpellCast(Args);
 }
 
 PLUGIN_EVENT(void) OnUnitDeath(IUnit* Source)
@@ -65,16 +65,17 @@ PLUGIN_EVENT(void) OnDestroyObject(IUnit* Source)
 
 PLUGIN_EVENT(void) OnDoCast(CastedSpell const& Args)
 {
+	
 }
 
 PLUGIN_EVENT(void) OnInterruptible(InterruptibleSpell const& Args)
 {
-
+	ChampSelect->OnInterruptible(Args);
 }
 
 PLUGIN_EVENT(void) OnGapCloser(GapCloserSpell const& Args)
 {
-
+	ChampSelect->OnGapCloser(Args);
 }
 
 // Called when issuing an order (e.g move, attack, etc.)
@@ -101,17 +102,17 @@ PLUGIN_EVENT(void) OnGameEnd()
 
 PLUGIN_EVENT(void) OnLevelUp(IUnit* Source, int NewLevel)
 {
-
+	ChampSelect->OnLevelUp(Source, NewLevel);
 }
 
 // Only called for local player, before the spell packet is sent
 PLUGIN_EVENT(void) OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
 {
+	ChampSelect->OnPreCast(Slot, Target, StartPosition, EndPosition);
 }
 
 PLUGIN_EVENT(void) OnDash(UnitDash* Args)
 {
-
 }
 
 PLUGIN_EVENT(void) OnD3DPresent(void* Direct3D9DevicePtr)
@@ -227,7 +228,7 @@ PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
 	LocalChamp = GEntityList->Player();
 	// go through champs we have memes for
 	if (strstr(LocalChamp->ChampionName(), "Lee Sin"))
-		ChampSelect = new LeeSin(); // TODO
+		ChampSelect = new LeeSin(TopLevel, LocalChamp); // TODO
 
 
 	AddEvents();

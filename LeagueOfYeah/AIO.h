@@ -1,96 +1,56 @@
 #pragma once
-#include "Yeah.h"
+#include "SDK\PluginSDK.h"
 
-class AIO
+struct EnemyTeleportInformation
+{
+	IUnit*	Player;
+	bool IsRecalling;
+	float CompletionTime;
+
+	float LastSeenTime;
+	float MovementRadius;
+	std::vector<Vec3> WayPts;
+};
+
+enum Champions
+{
+	KOGMAW, CAITLYN, TWITCH, GRAVES, TRISTANA, SIVIR, LUCIAN
+};
+
+class Champion
 {
 public:
-	AIO(IUnit* Champion, IMenu* ChampMenu) :Champion(Champion), ChampionMenu(ChampionMenu){}
-	~AIO(); // De-constructor
+	Champion(IMenu* Parent, IUnit* Hero) :Hero(Hero), ParentMenu(Parent) {}
+	~Champion();
 
-	virtual void OnOrbwalkAttack(IUnit* Source, IUnit* Target);
+	IUnit * GetHero();
+	IMenu* GetMenu();
 
-	virtual void  OnOrbwalkAfterAttack(IUnit* Source, IUnit* Target);
-
-
-	// Return an IUnit object here to force the orbwalker to select it for this tick
-	virtual IUnit* OnOrbwalkingFindTarget();
-
-
-	virtual void OnOrbwalkTargetChange(IUnit* OldTarget, IUnit* NewTarget);
-
-
-	virtual void OnOrbwalkNonKillableMinion(IUnit* NonKillableMinion);
-
+	virtual void Combo() {};
+	//events
 	virtual void OnGameUpdate();
-
 	virtual void OnRender();
-
+	virtual void OnRealSpellCast(CastedSpell const& Args);
 	virtual void OnSpellCast(CastedSpell const& Args);
-
-
-	virtual void OnUnitDeath(IUnit* Source);
-
-
-	virtual void OnCreateObject(IUnit* Source);
-
-
-	virtual void OnDestroyObject(IUnit* Source);
-
-
-	virtual void  OnDoCast(CastedSpell const& Args);
-
-	virtual void OnInterruptible(InterruptibleSpell const& Args);
-
-
-	virtual void OnGapCloser(GapCloserSpell const& Args);
-
-
-	// Called when issuing an order (e.g move, attack, etc.)
-	// Return false to stop order from executing
-	virtual bool OnIssueOrder(IUnit* Source, DWORD OrderIdx, Vec3* Position, IUnit* Target);
-
-
-	virtual void OnBuffAdd(IUnit* Source, void* BuffData);
-
-	virtual void OnBuffRemove(IUnit* Source, void* BuffData);
-
-
-	virtual void OnGameEnd();
-
-
-	virtual void OnLevelUp(IUnit* Source, int NewLevel);
-
-
-	// Only called for local player, before the spell packet is sent
 	virtual bool OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition);
-
-	virtual void OnDash(UnitDash* Args);
-
-	virtual void OnD3DPresent(void* Direct3D9DevicePtr);
-
-
-	virtual void OnD3DPreReset(void* Direct3D9DevicePtr);
-
-
-	virtual void OnD3DPostReset(void* Direct3D9DevicePtr);
-
-	virtual void OnRenderBehindHUD();
-
-
-	// Return false to set this message as handled
-	virtual void OnWndProc(HWND Wnd, UINT Message, WPARAM wParam, LPARAM lParam);
-
-
-	virtual void OnEnterVisible(IUnit* Source);
-
+	virtual void OnOrbwalkAttack(IUnit* Source, IUnit* Target);
+	virtual void BeforeAttack(IUnit* Target);
+	virtual void OnInterruptible(InterruptibleSpell const& Args);
+	virtual void OnGapCloser(GapCloserSpell const& Args);
+	virtual void OnLevelUp(IUnit* Source, int NewLevel);
+	virtual void OnPlayAnimation(IUnit* Source, std::string const Args);
 	virtual void OnExitVisible(IUnit* Source);
+	virtual void OnTeleport(OnTeleportArgs* Args);
 
-	protected:
-	IUnit* Champion;
-	IMenu* ChampionMenu;
-	// Spells
-	ISpell2* Q;
-	ISpell2* W;
-	ISpell2* E;
-	ISpell2* R;
+protected:
+	std::vector<IUnit*>	EnemyHeros;
+	IUnit*			Hero;
+	IMenu*			ParentMenu;
+	ISpell2*		Q;
+	ISpell2*		W;
+	ISpell2*		E;
+	ISpell2*		R;
+	short			keystate;
+	IUnit*			ComboTarget;
+	bool			SemiManualKey;
 };

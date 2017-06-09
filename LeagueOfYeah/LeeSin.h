@@ -1,10 +1,10 @@
 #pragma once
 #include "AIO.h"
 
-class LeeSin : public virtual AIO
+class LeeSin : public virtual Champion
 {
 public:
-	LeeSin(IUnit* Lee, IMenu* ChampMenu);
+	LeeSin(IMenu* Parent, IUnit* Hero);
 	~LeeSin(); // DeConstruct this nibba
 
 	void Combo();
