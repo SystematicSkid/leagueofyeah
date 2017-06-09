@@ -9,8 +9,8 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 {
 	if (Q == nullptr)
 	{
-		Q = GPluginSDK->CreateSpell2(kSlotQ, kLineCast, true, false, kCollidesWithHeroes | kCollidesWithMinions);
-		Q->SetSkillshot(0.25f, 0.f, 1750.f, 925.f);
+		Q = GPluginSDK->CreateSpell2(kSlotQ, kLineCast, true, false, kCollidesWithYasuoWall | kCollidesWithMinions);
+		Q->SetSkillshot(0.25f, 50.f, 1750.f, 925.f);
 	}
 	if (W = nullptr)
 	{
@@ -51,11 +51,29 @@ void BlitzCrank::Combo()
 {
 	for (auto pEnemy : GPluginSDK->GetEntityList()->GetAllHeros(false, true))
 	{
-		if (!GEntityList->Player()->IsValidTarget(pEnemy, Q->Range()))
-			continue;
-
-		float flDistance = pEnemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
-
+		auto enemy = GTargetSelector->FindTarget(LowestHealthPriority, SpellDamage, Q->Range());
+		if (enemy != nullptr)
+		{
+			if (HookMode->GetInteger() == 0)
+			{
+				if (Q->IsReady() && enemy->IsValidTarget())
+				{
+					if ((!enemy->HasBuffOfType(BUFF_SpellShield) || !enemy->HasBuffOfType(BUFF_SpellImmunity)) && enemy != nullptr && (enemy->GetPosition() - GEntityList->Player()->GetPosition()).Length() <= 900 && (enemy->GetPosition() - GEntityList->Player()->GetPosition()).Length() >= 225)
+					{
+						AdvPredictionOutput PredOut;
+						Q->RunPrediction(enemy, false, kCollidesWithMinions, &PredOut);
+						if (PredOut.HitChance != kHitChanceCollision && PredOut.HitChance >= kHitChanceVeryHigh) // fuck colliding with retard minions
+						{
+							Vec3 Futurepos; GPrediction->GetFutureUnitPosition(enemy, 0.2f, true, Futurepos);
+							float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+							if (Q->Range > flDistance)
+								Q->CastOnPosition(Futurepos);
+						}
+					}
+			}
+			
+		}
+		
 	}
 }
 
