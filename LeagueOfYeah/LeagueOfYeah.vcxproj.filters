@@ -33,12 +33,18 @@
     <ClInclude Include="SDK\Vector3.h">
       <Filter>Header Files\SDK</Filter>
     </ClInclude>
+    <ClInclude Include="AIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\PluginSDK.cpp">
       <Filter>Source Files\SDK</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
