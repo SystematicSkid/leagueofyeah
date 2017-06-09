@@ -133,7 +133,18 @@ void BlitzCrank::LaneClear()
 {
 	for (auto pCreep : GEntityList->GetAllMinions(false, true, true))
 	{
-
+		if (pCreep != nullptr)
+		{
+			float flDistance = pCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+			if (EFarm->Enabled() && flDistance < 100 && E->IsReady() && pCreep->GetHealth() < GDamage->GetSpellDamage(GEntityList->Player(), pCreep, kSlotQ))
+			{
+				if (E->CastOnPlayer())
+				{
+					GOrbwalking->SetOverrideTarget(pCreep);
+				}
+			}
+		}
+		
 	}
 }
 
