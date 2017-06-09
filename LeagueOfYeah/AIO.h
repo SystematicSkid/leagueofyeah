@@ -4,6 +4,9 @@
 class AIO
 {
 public:
+	AIO(IUnit* Champion, IMenu* ChampMenu);
+	~AIO(); // De-constructor
+
 	virtual void OnGameUpdate();
 	virtual void OnRender();
 	virtual void OnRealSpellCast(CastedSpell const& Args);
@@ -17,4 +20,13 @@ public:
 	virtual void OnPlayAnimation(IUnit* Source, std::string const Args);
 	virtual void OnExitVisible(IUnit* Source);
 	virtual void OnTeleport(OnTeleportArgs* Args);
+
+private:
+	IUnit* Champion;
+	IMenu* ChampionMenu;
+	// Spells
+	ISpell2* Q;
+	ISpell2* W;
+	ISpell2* E;
+	ISpell2* R;
 };
