@@ -36,5 +36,37 @@ Zilean::Zilean(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 
 void Zilean::Combo()
 {
+	for (auto pEnemy : GPluginSDK->GetEntityList()->GetAllHeros(false, true))
+	{
+		auto enemy = GTargetSelector->FindTarget(LowestHealthPriority, SpellDamage, Q->Range());
+		if (enemy != nullptr)
+		{
+
+		}
+	}
+}
+
+void Zilean::OnGameUpdate()
+{
 
 }
+
+void Zilean::OnRender()
+{
+
+}
+
+void Zilean::OnSpellCast(CastedSpell const& Args)
+{
+
+}
+bool Zilean::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
+{
+	return true;
+}
+
+void Zilean::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
+{
+
+}
+

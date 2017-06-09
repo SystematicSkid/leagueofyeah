@@ -66,7 +66,7 @@ void BlitzCrank::Combo()
 						{
 							Vec3 Futurepos; GPrediction->GetFutureUnitPosition(enemy, 0.2f, true, Futurepos);
 							float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
-							if (Q->Range > flDistance)
+							if (Q->Range() >= flDistance)
 								Q->CastOnPosition(Futurepos);
 						}
 					}
@@ -150,3 +150,28 @@ auto FindBestLineCastPosition(std::vector<Vec3> RangeCheckFroms, float range, fl
 	}
 	Output = result;
 }
+
+void BlitzCrank::OnGameUpdate()
+{
+
+}
+
+void BlitzCrank::OnRender()
+{
+
+}
+
+void BlitzCrank::OnSpellCast(CastedSpell const& Args)
+{
+
+}
+bool BlitzCrank::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
+{
+	return true;
+}
+
+void BlitzCrank::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
+{
+
+}
+

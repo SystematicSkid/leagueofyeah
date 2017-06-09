@@ -52,3 +52,33 @@ LeeSin::LeeSin(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	*/
 
 }
+
+void LeeSin::Combo()
+{
+
+}
+
+void LeeSin::OnGameUpdate()
+{
+
+}
+
+void LeeSin::OnRender()
+{
+
+}
+
+void LeeSin::OnSpellCast(CastedSpell const& Args)
+{
+
+}
+bool LeeSin::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
+{
+	return true;
+}
+
+void LeeSin::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
+{
+
+}
+

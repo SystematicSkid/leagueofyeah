@@ -4,6 +4,7 @@
 
 //Champions
 #include "LeeSin.h"
+#include "BlitzCrank.h"
 
 IMenu* TopLevel;
 Champion* ChampSelect;

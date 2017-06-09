@@ -229,6 +229,8 @@ PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
 	// go through champs we have memes for
 	if (strstr(LocalChamp->ChampionName(), "Lee Sin"))
 		ChampSelect = new LeeSin(TopLevel, LocalChamp); // TODO
+	else if (strstr(LocalChamp->ChampionName(), "Blitzcrank"))
+		ChampSelect = new BlitzCrank(TopLevel, LocalChamp);
 
 
 	AddEvents();
