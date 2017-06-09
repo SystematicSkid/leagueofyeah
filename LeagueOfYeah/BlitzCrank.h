@@ -1,16 +1,15 @@
 #pragma once
 #include "AIO.h"
 
-class LeeSin : public virtual Champion
+class BlitzCrank : public virtual Champion
 {
 public:
-	LeeSin(IMenu* Parent, IUnit* Hero);
-	~LeeSin(); // DeConstruct this nibba
+	BlitzCrank(IMenu* Parent, IUnit* Hero);
+	~BlitzCrank(); // DeConstruct this nibba
 
 	void Combo();
 	void Harass();
 	void LaneClear();
-	void WardHop();
 
 	void OnGameUpdate();
 	void OnRender();
@@ -19,22 +18,10 @@ public:
 	bool OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition);
 
 private:
-	//general menu settings
-	IMenu* LeeMenu;
-
-	//draw menu settings
+	IMenu* BlitzCrankMenu;
 	IMenu* Drawings;
-
-	//misc menu settings
 	IMenu* Misc;
-
-	//laneclear menu settings
 	IMenu* LaneClearMenu;
-
-	//harass menu settings
 	IMenu* HarassMenu;
-
-	//combo menu settings
 	IMenu* ComboMenu;
-
 };

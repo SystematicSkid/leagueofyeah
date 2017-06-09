@@ -1,6 +1,6 @@
 #include "AIO.h"
 
-AIO::~AIO()
+Champion::~Champion()
 {
 	// We  want to check if the spells are actually there before we delete the memes
 	if (Q)
@@ -12,152 +12,78 @@ AIO::~AIO()
 	if (R)
 		delete R;
 
-	ChampionMenu->Remove();
+	ParentMenu->Remove();
 }
-
-void AIO::OnOrbwalkBeforeAttack(IUnit* Target)
+IUnit* Champion::GetHero()
 {
+	return Hero;
 }
 
-void AIO::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
+IMenu* Champion::GetMenu()
 {
-
+	return ParentMenu;
 }
 
-void AIO::OnOrbwalkAfterAttack(IUnit* Source, IUnit* Target)
-{
-
-}
-
-// Return an IUnit object here to force the orbwalker to select it for this tick
-IUnit* OnOrbwalkingFindTarget()
-{
-	return nullptr;
-}
-
-void AIO::OnOrbwalkTargetChange(IUnit* OldTarget, IUnit* NewTarget)
+void Champion::OnGameUpdate()
 {
 
 }
 
-void AIO::OnOrbwalkNonKillableMinion(IUnit* NonKillableMinion)
+void Champion::OnRender()
 {
 
 }
 
-void AIO::OnGameUpdate()
+void Champion::OnRealSpellCast(CastedSpell const& Args)
 {
 
 }
 
-void AIO::OnRender()
+void Champion::OnSpellCast(CastedSpell const& Args)
 {
 
 }
-
-void AIO::OnSpellCast(CastedSpell const& Args)
-{
-
-}
-
-void AIO::OnUnitDeath(IUnit* Source)
-{
-
-}
-
-void AIO::OnCreateObject(IUnit* Source)
-{
-
-}
-
-void AIO::OnDestroyObject(IUnit* Source)
-{
-
-}
-
-void AIO::OnDoCast(CastedSpell const& Args)
-{
-}
-
-void AIO::OnInterruptible(InterruptibleSpell const& Args)
-{
-
-}
-
-void AIO::OnGapCloser(GapCloserSpell const& Args)
-{
-
-}
-
-// Called when issuing an order (e.g move, attack, etc.)
-// Return false to stop order from executing
-bool AIO::OnIssueOrder(IUnit* Source, DWORD OrderIdx, Vec3* Position, IUnit* Target)
+bool Champion::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
 {
 	return true;
 }
 
-void AIO::OnBuffAdd(IUnit* Source, void* BuffData)
+void Champion::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
 {
 
 }
 
-void AIO::OnBuffRemove(IUnit* Source, void* BuffData)
+void Champion::BeforeAttack(IUnit* Target)
 {
 
 }
 
-void AIO::OnGameEnd()
+void Champion::OnInterruptible(InterruptibleSpell const& Args)
 {
 
 }
 
-void AIO::OnLevelUp(IUnit* Source, int NewLevel)
+void Champion::OnGapCloser(GapCloserSpell const& Args)
 {
 
 }
 
-// Only called for local player, before the spell packet is sent
-bool AIO::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
-{
-}
-
-void AIO::OnDash(UnitDash* Args)
+void Champion::OnLevelUp(IUnit* Source, int NewLevel)
 {
 
 }
 
-void AIO::OnD3DPresent(void* Direct3D9DevicePtr)
+void Champion::OnPlayAnimation(IUnit* Source, std::string const Args)
 {
 
 }
 
-void AIO::OnD3DPreReset(void* Direct3D9DevicePtr)
+void Champion::OnExitVisible(IUnit* Source)
 {
 
 }
 
-void AIO::OnD3DPostReset(void* Direct3D9DevicePtr)
-{
-
-}
-
-void AIO::OnRenderBehindHUD()
-{
-
-}
-
-// Return false to set this message as handled
-bool AIO::OnWndProc(HWND Wnd, UINT Message, WPARAM wParam, LPARAM lParam)
-{
-	return true;
-}
-
-void AIO::OnEnterVisible(IUnit* Source)
-{
-
-}
-
-void AIO::OnExitVisible(IUnit* Source)
+void Champion::OnTeleport(OnTeleportArgs* Args)
 {
 
 }

@@ -2,6 +2,9 @@
 #include "SDK/PluginSDK.h"
 #include "AIO.h"
 
+//Champions
+#include "LeeSin.h"
+
 IMenu* TopLevel;
-AIO* ChampSelect;
+Champion* ChampSelect;
 IUnit* LocalChamp;

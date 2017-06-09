@@ -111,6 +111,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AIO.h" />
+    <ClInclude Include="BlitzCrank.h" />
     <ClInclude Include="LeeSin.h" />
     <ClInclude Include="SDK\LPPConstants.h" />
     <ClInclude Include="SDK\PluginData.h" />
@@ -120,6 +121,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIO.cpp" />
+    <ClCompile Include="BlitzCrank.cpp" />
     <ClCompile Include="LeeSin.cpp" />
     <ClCompile Include="Yeah.cpp" />
     <ClCompile Include="SDK\PluginSDK.cpp" />
