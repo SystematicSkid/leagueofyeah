@@ -112,6 +112,7 @@
   <ItemGroup>
     <ClInclude Include="AIO.h" />
     <ClInclude Include="BlitzCrank.h" />
+    <ClInclude Include="Geom.h" />
     <ClInclude Include="LeeSin.h" />
     <ClInclude Include="SDK\LPPConstants.h" />
     <ClInclude Include="SDK\PluginData.h" />
