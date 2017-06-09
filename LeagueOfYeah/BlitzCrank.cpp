@@ -70,10 +70,11 @@ void BlitzCrank::Combo()
 								Q->CastOnPosition(Futurepos);
 						}
 					}
+				}
+
 			}
-			
+
 		}
-		
 	}
 }
 
