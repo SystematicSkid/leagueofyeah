@@ -44,16 +44,33 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	UseWtoFlee = Misc->CheckBox("Use W to Flee", true);
 	HookSettings->AddMenu("Hook Settings");
 	AutoHook = HookSettings->CheckBox("Use Hook", true);
-	HookMode = HookSettings->AddSelection("Hook Mode", 0, { "Safe", "Always" });
+	HookMode = HookSettings->AddSelection("Hook Chance", 0, { "Very High", "High" });
 }
 
 void BlitzCrank::Combo()
 {
+	ePredictionChance Chance;
+
+	float RDamage; // We're going to assume they level up R every chance they get
+	if (GEntityList->Player()->GetLevel() < 11)
+		RDamage = 250;
+	else if (GEntityList->Player()->GetLevel() < 16)
+		RDamage = 375;
+	else if (GEntityList->Player()->GetLevel() > 16)
+		RDamage = 500;
+	if (HookMode->GetInteger() == 0)
+		 Chance = kHitChanceVeryHigh;
+	else
+		 Chance = kHitChanceHigh;
+
+
+	
 	for (auto pEnemy : GPluginSDK->GetEntityList()->GetAllHeros(false, true))
 	{
 		auto enemy = GTargetSelector->FindTarget(LowestHealthPriority, SpellDamage, Q->Range());
 		if (enemy != nullptr)
 		{
+			float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
 			if (HookMode->GetInteger() == 0)
 			{
 				if (Q->IsReady() && enemy->IsValidTarget())
@@ -62,10 +79,10 @@ void BlitzCrank::Combo()
 					{
 						AdvPredictionOutput PredOut;
 						Q->RunPrediction(enemy, false, kCollidesWithMinions, &PredOut);
-						if (PredOut.HitChance != kHitChanceCollision && PredOut.HitChance >= kHitChanceVeryHigh) // fuck colliding with retard minions
+						if (PredOut.HitChance != kHitChanceCollision && PredOut.HitChance >= Chance) // fuck colliding with retard minions
 						{
 							Vec3 Futurepos; GPrediction->GetFutureUnitPosition(enemy, 0.2f, true, Futurepos);
-							float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+							
 							if (Q->Range() >= flDistance)
 								Q->CastOnPosition(Futurepos);
 						}
@@ -73,8 +90,20 @@ void BlitzCrank::Combo()
 				}
 
 			}
-
+			if (enemy->HasBuff("rocketgrab2") && E->IsReady())
+			{
+				if (E->CastOnPlayer())
+				{
+					GOrbwalking->SetOverrideTarget(enemy);
+				}
+			}
+			if (enemy->GetHealth() < RDamage || GEntityList->Player()->HealthPercent() < 10)
+			{
+				if (flDistance < 600)
+					R->CastOnPlayer();
+			}
 		}
+		
 	}
 }
 
@@ -83,7 +112,7 @@ void BlitzCrank::Flee()
 	if (GetAsyncKeyState(FleeKey->GetInteger()) == 0)
 		return;
 
-	if (W->IsReady() && !GEntityList->Player()->IsDead())
+	if (W->IsReady() && !GEntityList->Player()->IsDead() && UseWtoFlee->Enabled())
 	{
 		W->CastOnPlayer();
 	}
@@ -174,12 +203,29 @@ auto FindBestLineCastPosition(std::vector<Vec3> RangeCheckFroms, float range, fl
 
 void BlitzCrank::OnGameUpdate()
 {
-
+	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeCombo)
+		BlitzCrank::Combo();
+	
+	if (GetAsyncKeyState(FleeKey->GetInteger()) == 0)
+		BlitzCrank::Flee();
 }
 
 void BlitzCrank::OnRender()
 {
-
+	if (OnlyDrawReady->Enabled())
+	{
+		if (DrawHookRange->Enabled() && Q->IsReady())
+			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 255, 255), Q->Radius());
+		if (DrawRRange->Enabled() && R->IsReady())
+			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 0, 0, 255), R->Radius());
+	}
+	else
+	{
+		if (DrawHookRange->Enabled())
+			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 255, 255), Q->Radius());
+		if (DrawRRange->Enabled())
+			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 0, 0, 255), R->Radius());
+	}
 }
 
 void BlitzCrank::OnSpellCast(CastedSpell const& Args)
