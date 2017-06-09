@@ -78,6 +78,27 @@ void BlitzCrank::Combo()
 	}
 }
 
+void BlitzCrank::Flee()
+{
+	if (GetAsyncKeyState(FleeKey->GetInteger()) == 0)
+		return;
+
+	if (W->IsReady() && !GEntityList->Player()->IsDead())
+	{
+		W->CastOnPlayer();
+	}
+	for (auto pEnemy : GPluginSDK->GetEntityList()->GetAllHeros(false, true))
+	{
+		float flDistance = pEnemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+		auto DangerDist = GEntityList->Player()->GetRealAutoAttackRange(GEntityList->Player()) + 100;
+		if (flDistance <= DangerDist && !W->IsReady() && E->IsReady())
+		{
+			E->CastOnUnit(pEnemy);
+		}
+	}
+	
+}
+
 
 auto IsInRange(Vec2 PositionA, Vec2 PositionB, float Range) -> bool
 {

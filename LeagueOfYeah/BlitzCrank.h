@@ -22,6 +22,7 @@ public:
 	void Combo();
 	void Harass();
 	void LaneClear();
+	void Flee();
 
 	auto FindBestLineCastPosition();
 	auto IsInRange(Vec2 PositionA, Vec2 PositionB, float Range) -> bool;

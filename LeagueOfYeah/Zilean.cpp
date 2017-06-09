@@ -41,7 +41,21 @@ void Zilean::Combo()
 		auto enemy = GTargetSelector->FindTarget(LowestHealthPriority, SpellDamage, Q->Range());
 		if (enemy != nullptr)
 		{
-
+			if (Q->IsReady() && enemy->IsValidTarget())
+			{
+				AdvPredictionOutput PredOut;
+				Q->RunPrediction(enemy, true, kCollidesWithMinions, &PredOut);
+				if (!enemy->HasBuffOfType(BUFF_SpellShield) || !enemy->HasBuffOfType(BUFF_SpellImmunity))
+				{
+					if (PredOut.HitChance != kHitChanceCollision && PredOut.HitChance >= kHitChanceHigh)
+					{
+						Vec3 Futurepos; GPrediction->GetFutureUnitPosition(enemy, 0.2f, true, Futurepos);
+						float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+						if (Q->Range() >= flDistance)
+							Q->CastOnPosition(Futurepos);
+					}
+				}
+			}
 		}
 	}
 }
