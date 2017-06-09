@@ -119,6 +119,7 @@
     <ClInclude Include="SDK\PluginSDK.h" />
     <ClInclude Include="SDK\Vector3.h" />
     <ClInclude Include="Yeah.h" />
+    <ClInclude Include="Zilean.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIO.cpp" />
@@ -126,6 +127,7 @@
     <ClCompile Include="LeeSin.cpp" />
     <ClCompile Include="Yeah.cpp" />
     <ClCompile Include="SDK\PluginSDK.cpp" />
+    <ClCompile Include="Zilean.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
