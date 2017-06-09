@@ -25,4 +25,7 @@ private:
 	IMenu* HarassMenu;
 	IMenu* ComboMenu;
 	IMenu* HookSettings;
+
+	IMenuOption* HookMode;
+	IMenuOption* AutoHook;
 };

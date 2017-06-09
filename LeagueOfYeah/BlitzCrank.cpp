@@ -37,5 +37,7 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	Drawings->AddMenu("Drawings");
 	LaneClearMenu->AddMenu("Lane Clear");
 	Misc->AddMenu("Misc.");
+	HookSettings->AddMenu("Hook Settings");
+	HookMode = HookSettings->AddSelection("Hook Mode", 0, )
 
 }

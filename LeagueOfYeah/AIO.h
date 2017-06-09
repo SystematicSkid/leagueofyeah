@@ -14,7 +14,7 @@ struct EnemyTeleportInformation
 
 enum Champions
 {
-	KOGMAW, CAITLYN, TWITCH, GRAVES, TRISTANA, SIVIR, LUCIAN
+	LEESIN, BLITZCRANK, ZILEAN
 };
 
 class Champion
