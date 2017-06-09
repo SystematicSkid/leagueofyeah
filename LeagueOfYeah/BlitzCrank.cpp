@@ -39,6 +39,7 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	DrawRRange = Drawings->CheckBox("Draw R Range", true);
 	OnlyDrawReady = Drawings->CheckBox("Only Draw Ready", true);
 	LaneClearMenu->AddMenu("Lane Clear");
+	EFarm = LaneClearMenu->CheckBox("Use E", true);
 	Misc->AddMenu("Misc.");
 	FleeKey = Misc->AddKey("Flee Key", 72);
 	UseWtoFlee = Misc->CheckBox("Use W to Flee", true);
@@ -126,6 +127,14 @@ void BlitzCrank::Flee()
 		}
 	}
 	
+}
+
+void BlitzCrank::LaneClear()
+{
+	for (auto pCreep : GEntityList->GetAllMinions(false, true, true))
+	{
+
+	}
 }
 
 
