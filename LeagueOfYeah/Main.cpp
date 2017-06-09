@@ -1,6 +1,6 @@
 #include "SDK\PluginSDK.h"
 
-PluginSetup("Name");
+PluginSetup("Yeah AIO");
 
 #pragma region Events
 PLUGIN_EVENT(void) OnOrbwalkBeforeAttack(IUnit* Target)
@@ -151,12 +151,8 @@ PLUGIN_EVENT(void) OnExitVisible(IUnit* Source)
 }
 #pragma endregion
 
-// Called when plugin is first loaded
-PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
+void AddEvents()
 {
-	// Initializes global interfaces for core access
-	PluginSDKSetup(PluginSDK);
-
 	GEventManager->AddEventHandler(kEventOrbwalkBeforeAttack, OnOrbwalkBeforeAttack);
 	GEventManager->AddEventHandler(kEventOrbwalkOnAttack, OnOrbwalkAttack);
 	GEventManager->AddEventHandler(kEventOrbwalkAfterAttack, OnOrbwalkAfterAttack);
@@ -188,8 +184,7 @@ PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
 	GEventManager->AddEventHandler(kEventOnExitVisible, OnExitVisible);
 }
 
-// Called when plugin is unloaded
-PLUGIN_API void OnUnload()
+void RemoveEvents()
 {
 	GEventManager->RemoveEventHandler(kEventOrbwalkBeforeAttack, OnOrbwalkBeforeAttack);
 	GEventManager->RemoveEventHandler(kEventOrbwalkOnAttack, OnOrbwalkAttack);
@@ -220,4 +215,20 @@ PLUGIN_API void OnUnload()
 	GEventManager->RemoveEventHandler(kEventOnWndProc, OnWndProc);
 	GEventManager->RemoveEventHandler(kEventOnEnterVisible, OnEnterVisible);
 	GEventManager->RemoveEventHandler(kEventOnExitVisible, OnExitVisible);
+}
+
+// Called when plugin is first loaded
+PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
+{
+	// Initializes global interfaces for core access
+	PluginSDKSetup(PluginSDK);
+	GGame->PrintChat("League of Yeah AIO Loaded!");
+	AddEvents();
+}
+
+// Called when plugin is unloaded
+PLUGIN_API void OnUnload()
+{
+	GGame->PrintChat("League of Yeah AIO Unloaded!");
+	RemoveEvents();
 }
