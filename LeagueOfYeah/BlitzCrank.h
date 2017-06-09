@@ -47,6 +47,7 @@ private:
 	IMenuOption* UseWtoFlee;
 	IMenuOption* FleeKey;
 	IMenuOption* EFarm;
+	IMenuOption* RFarm;
 
 	// Draw Options
 	IMenuOption* DrawHookRange;

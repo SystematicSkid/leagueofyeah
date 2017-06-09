@@ -40,6 +40,7 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	OnlyDrawReady = Drawings->CheckBox("Only Draw Ready", true);
 	LaneClearMenu->AddMenu("Lane Clear");
 	EFarm = LaneClearMenu->CheckBox("Use E", true);
+	RFarm = LaneClearMenu->CheckBox("Use R", false);
 	Misc->AddMenu("Misc.");
 	FleeKey = Misc->AddKey("Flee Key", 72);
 	UseWtoFlee = Misc->CheckBox("Use W to Flee", true);
@@ -135,12 +136,22 @@ void BlitzCrank::LaneClear()
 	{
 		if (pCreep != nullptr)
 		{
+			static int NearbyMinions;
 			float flDistance = pCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
 			if (EFarm->Enabled() && flDistance < 100 && E->IsReady() && pCreep->GetHealth() < GDamage->GetSpellDamage(GEntityList->Player(), pCreep, kSlotQ))
 			{
 				if (E->CastOnPlayer())
 				{
 					GOrbwalking->SetOverrideTarget(pCreep);
+				}
+			}
+			if (RFarm->Enabled() && R->IsReady())
+			{
+				if (flDistance < R->Radius())
+					NearbyMinions++;
+				if (NearbyMinions > 2)
+				{
+					R->CastOnPlayer();
 				}
 			}
 		}
@@ -228,6 +239,9 @@ void BlitzCrank::OnGameUpdate()
 	
 	if (GetAsyncKeyState(FleeKey->GetInteger()) == 0)
 		BlitzCrank::Flee();
+
+	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeLaneClear)
+		BlitzCrank::LaneClear();
 }
 
 void BlitzCrank::OnRender()
