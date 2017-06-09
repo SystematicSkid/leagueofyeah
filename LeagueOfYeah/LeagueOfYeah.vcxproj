@@ -115,10 +115,11 @@
     <ClInclude Include="SDK\PluginData.h" />
     <ClInclude Include="SDK\PluginSDK.h" />
     <ClInclude Include="SDK\Vector3.h" />
+    <ClInclude Include="Yeah.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AIO.cpp" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Yeah.cpp" />
     <ClCompile Include="SDK\PluginSDK.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

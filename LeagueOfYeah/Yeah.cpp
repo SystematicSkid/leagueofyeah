@@ -1,4 +1,4 @@
-#include "SDK\PluginSDK.h"
+#include "Yeah.h"
 
 PluginSetup("Yeah AIO");
 
@@ -223,6 +223,13 @@ PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
 	// Initializes global interfaces for core access
 	PluginSDKSetup(PluginSDK);
 	GGame->PrintChat("League of Yeah AIO Loaded!");
+	TopLevel = GPluginSDK->AddMenu("Yeah AIO");
+	LocalChamp = GEntityList->Player();
+	// go through champs we have memes for
+	if (strstr(LocalChamp->ChampionName(), "Lee Sin"))
+		ChampSelect = new LeeSin(); // TODO
+
+
 	AddEvents();
 }
 
