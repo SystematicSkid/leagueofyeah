@@ -24,4 +24,5 @@ private:
 	IMenu* LaneClearMenu;
 	IMenu* HarassMenu;
 	IMenu* ComboMenu;
+	IMenu* HookSettings;
 };

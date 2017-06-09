@@ -23,6 +23,7 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	if (R = nullptr)
 	{
 		R = GPluginSDK->CreateSpell2(kSlotR, kCircleCast, false, true, kCollidesWithNothing);
+		R->SetOverrideRadius(600);
 	}
 
 	BlitzCrankMenu = Parent->AddMenu("BlitzCrank");

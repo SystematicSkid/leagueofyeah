@@ -5,7 +5,7 @@ LeeSin::~LeeSin() // We dont want our script to stay around
 	LeeMenu->Remove();
 }
 
-LeeSin::LeeSin(IUnit* Lee, IMenu* ChampMenu) :AIO(Lee, ChampMenu)
+LeeSin::LeeSin(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 {
 	if (Q == nullptr)
 	{
