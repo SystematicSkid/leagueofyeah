@@ -30,7 +30,9 @@ Ryze::Ryze(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	}
 
 	// Menu Options
-	ComboMenu->AddMenu("Combo");
+	RyzeMenu = GPluginSDK->AddMenu("Ryze");
+	ComboMenu = RyzeMenu->AddMenu("Combo");
+	LaneClearMenu = RyzeMenu->AddMenu("LaneClear");
 }
 
 	void Ryze::Combo() // If E is ready, E Target - W Target - Q Target - W Target
@@ -78,15 +80,15 @@ Ryze::Ryze(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 		}
 	}
 
-	LaneClear->AddMenu("LaneClear")
+	
 		void Ryze::LaneClear() // Find Target Minion, E Target, Wait Out cooldown, If E ready, E Target w Buff "Flux"
 	{
-		for (auto pCreep : GetEntityList()->GetAllMinions(false, true, true))
+		for (auto pCreep : GPluginSDK->GetEntityList()->GetAllMinions(false, true, true))
 		{
 			if (pCreep != nullptr)
 			{
 				float flDistance = pCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
-				if (E->IsReady() && flDistance <= 615 && pCreep->GetHealth() < GDamage->GetSpellDamage(GEntityList->Player(), kSlotE))
+				if (E->IsReady() && flDistance <= 615 && pCreep->GetHealth() <= GDamage->GetSpellDamage(GPluginSDK->GetEntityList()->Player(), pCreep, kSlotE))
 				{
 					if (E->CastOnPlayer())
 					{
