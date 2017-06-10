@@ -58,7 +58,7 @@ void Veigar::RCast()
 		if (pEnemy != nullptr)
 		{
 			float flDistance = pEnemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
-			if (R->IsReady() && flDistance <= 650 && pEnemy->GetHealth() < GDamage->GetSpellDamage(GEntityList->Player(), pEnemy, kSlotR))
+			if (R->IsReady() && flDistance <= 650 && pEnemy->GetHealth() <= GDamage->GetSpellDamage(GEntityList->Player(), pEnemy, kSlotR))
 			{
 				R->CastOnUnit(pEnemy);
 			}
