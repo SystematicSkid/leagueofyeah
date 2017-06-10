@@ -16,6 +16,8 @@ public:
 	void LaneClear();
 	void JungleClear();
 
+	void Drawing();
+
 	void OnGameUpdate();
 	void OnRender();
 	void OnSpellCast(CastedSpell const& Args);
@@ -46,8 +48,12 @@ private:
 	IMenuOption* LowHP;
 	IMenuOption* QJung;
 	IMenuOption* EJung;
+	IMenuOption* JungKey;
 
 	IMenuOption* QLane;
 	IMenuOption* ELane;
+
+	IMenuOption* DrawQ;
+	IMenuOption* VisibleOnly;
 
 };

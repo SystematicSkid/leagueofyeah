@@ -47,10 +47,15 @@ MasterYi::MasterYi(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	SmiteJung = JungleMenu->CheckBox("Use Smite", true);
 	HealJung = JungleMenu->CheckBox("Heal if Low", true);
 	LowHP = JungleMenu->AddInteger("Minimum Health", 1, 99, 10);
+	JungKey = JungleMenu->AddKey("Jungle Clear Key", 90);
 
 	LaneClearMenu = MasterYiMenu->AddMenu("Lane Clear");
 	QLane = LaneClearMenu->CheckBox("Use Q", true);
 	ELane = LaneClearMenu->CheckBox("Use E", false);
+
+	Drawings = MasterYiMenu->AddMenu("Drawings");
+	DrawQ = Drawings->CheckBox("Draw Q", true);
+	VisibleOnly = Drawings->CheckBox("Only Draw Ready", true);
 
 
 }
@@ -99,17 +104,16 @@ void MasterYi::LaneClear()
 		if(pMinion->IsDead())
 			continue;
 
-		auto minion = GTargetSelector->FindTarget(ClosestPriority, PhysicalDamage, GEntityList->Player()->AttackRange()); // We use closest so we dont get fucked over by any possible enemy laner
+		auto minion = GTargetSelector->FindTarget(ClosestPriority, PhysicalDamage, Q->Range()); // We use closest so we dont get fucked over by any possible enemy laner
 		float flDistance = minion->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
 		if (flDistance > Q->Range())
 			continue;
-		std::vector<IUnit*> Close = GetMinionsNearby(false, true, false);
+		std::vector<IUnit*> Close = GetMinionsNearby(false, true, false, Q->Range());
 		if (Q->IsReady() && QLane->Enabled() && Close.size() >= 3)
 			Q->CastOnUnit(minion);
 
 		if (E->IsReady() && ELane)
-		{
-			
+		{	
 			if (Close.size() >= 2)
 			{
 				E->CastOnPlayer();
@@ -123,14 +127,57 @@ void MasterYi::Combo()
 
 }
 
+void MasterYi::Harass()
+{
+	for (auto pMinions : GEntityList->GetAllMinions(false, true, false))
+	{
+		for (auto pEnemy : GEntityList->GetAllHeros(false, true))
+		{
+			if (pEnemy != nullptr || pMinions != nullptr)
+				continue;
+			if(pEnemy->IsDead() || pMinions->IsDead())
+			continue;
+
+			auto minion = GTargetSelector->FindTarget(ClosestPriority, PhysicalDamage, Q->Range());
+			auto enemy = GTargetSelector->FindTarget(LowestHealthPriority, PhysicalDamage, Q->Range());
+			float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+			std::vector<IUnit*> Close = GetMinionsNearby(false, true, false, Q->Range());
+			if (Close.size() <= 3 && flDistance < Q->Range() && Q->IsReady())
+			{
+				Q->CastOnUnit(minion);
+			}
+		}
+	}
+}
+
+void MasterYi::Drawing()
+{
+	if (!VisibleOnly->Enabled() && DrawQ->Enabled())
+	{
+		GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 255, 255), Q->Radius());
+	}
+	else if (DrawQ->Enabled() && Q->IsReady())
+	{
+		GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 255, 255), Q->Radius());
+	}
+}
+
 void MasterYi::OnGameUpdate()
 {
-
+	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeCombo)
+		MasterYi::Combo();															// Combo
+	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeMixed)
+		MasterYi::Harass();															// Harass
+	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeLaneClear)
+		MasterYi::LaneClear();														// Lane Clear
+	if (GUtility->IsKeyDown(JungKey->GetInteger()))
+		MasterYi::JungleClear();													// Jungle Clear
 }
 
 void MasterYi::OnRender()
 {
-
+	if (!GEntityList->Player()->IsDead())
+		Drawing();
 }
 
 void MasterYi::OnSpellCast(CastedSpell const& Args)

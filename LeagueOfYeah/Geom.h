@@ -193,19 +193,29 @@ inline bool GetSegmentSegmentIntersections(
 	return GetSegmentSegmentIntersections(ToVec2(lineSegment1Start), ToVec2(lineSegment1End), ToVec2(lineSegment2Start), ToVec2(lineSegment2End), out);
 }
 
-auto IsInRange(Vec3 PositionA, Vec3 PositionB, float Range) -> bool
+inline auto IsInRange(Vec3 PositionA, Vec3 PositionB, float Range) -> bool
 {
 	Vec2 DistanceVector = Vec2(PositionA.x - PositionB.x, PositionA.z - PositionB.z);
 
 	return DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y - Range * Range < 0;
 }
 
-std::vector<IUnit*> GetMinionsNearby(bool friendly, bool enemy, bool neutral)
+inline std::vector<IUnit*> GetMinionsNearby(bool friendly, bool enemy, bool neutral, float distance)
 {
 	auto minions = GEntityList->GetAllMinions(friendly, enemy, neutral);
 	auto local = GEntityList->Player();
 
-	minions.erase(std::remove_if(minions.begin(), minions.end(), [&](IUnit* m) { return !m || m->IsDead() || !local->IsValidTarget(m, local->AttackRange()); }));
+	minions.erase(std::remove_if(minions.begin(), minions.end(), [&](IUnit* m) { return !m || m->IsDead() || !local->IsValidTarget(m, distance); }));
+
+	return minions;
+}
+
+inline std::vector<IUnit*> GetHerosNearby(bool friendly, bool enemy, float distance)
+{
+	auto minions = GEntityList->GetAllHeros(friendly, enemy);
+	auto local = GEntityList->Player();
+
+	minions.erase(std::remove_if(minions.begin(), minions.end(), [&](IUnit* m) { return !m || m->IsDead() || !local->IsValidTarget(m, distance); }));
 
 	return minions;
 }

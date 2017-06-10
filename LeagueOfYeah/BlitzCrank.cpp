@@ -164,13 +164,6 @@ auto IsInRange(Vec2 PositionA, Vec2 PositionB, float Range) -> bool
 	return DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y - Range * Range < 0;
 }
 
-auto IsInRange(Vec3 PositionA, Vec3 PositionB, float Range) -> bool
-{
-	Vec2 DistanceVector = Vec2(PositionA.x - PositionB.x, PositionA.z - PositionB.z);
-
-	return DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y - Range * Range < 0;
-}
-
 auto FindBestLineCastPosition(std::vector<Vec3> RangeCheckFroms, float range, float castrange, float radius, bool Minions, bool Heroes, FarmLocation& Output) -> void
 {
 	FarmLocation result;
