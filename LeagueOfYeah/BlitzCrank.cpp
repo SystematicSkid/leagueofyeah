@@ -9,32 +9,6 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 {
 	if (Q == nullptr)
 	{
-		__asm
-		{
-
-			mov	ecx, DWORD PTR ? GPluginSDK@@3PAVIPluginSDK@@A; GPluginSDK
-			push	10; 0000000aH
-			push	0
-			push	1
-			mov	eax, DWORD PTR[ecx]
-			push	1
-			push	0
-			call	DWORD PTR[eax + 52]
-			mov	ecx, DWORD PTR[edi]
-
-			sub	esp, 16; 00000010H
-			mov	ecx, DWORD PTR[ecx + 4]
-			mov	DWORD PTR[esp + 12], 1147617280; 44674000H
-			mov	DWORD PTR[esp + 8], 1155186688; 44dac000H
-			mov	DWORD PTR[esp + 4], 1112014848; 42480000H
-			mov	DWORD PTR[ecx + edi + 24], eax
-			mov	eax, DWORD PTR[edi]
-			mov	DWORD PTR[esp], 1048576000; 3e800000H
-			mov	eax, DWORD PTR[eax + 4]
-			mov	ecx, DWORD PTR[eax + edi + 24]
-			mov	eax, DWORD PTR[ecx]
-			call	DWORD PTR[eax + 76]
-		}
 		//Q = GPluginSDK->CreateSpell2(kSlotQ, kLineCast, true, false, kCollidesWithYasuoWall | kCollidesWithMinions);
 		//Q->SetSkillshot(0.25f, 50.f, 1750.f, 925.f);
 	}
