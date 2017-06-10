@@ -1,0 +1,114 @@
+#include "MasterYi.h"
+
+MasterYi::~MasterYi() // We dont want our script to stay around
+{
+	MasterYiMenu->Remove();
+}
+
+MasterYi::MasterYi(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
+{
+	auto SummonerSpell1 = GPluginSDK->GetEntityList()->Player()->GetSpellName(kSummonerSlot1);
+	auto SummonerSpell2 = GPluginSDK->GetEntityList()->Player()->GetSpellName(kSummonerSlot2);
+	if (Q == nullptr)
+	{
+		Q = GPluginSDK->CreateSpell2(kSlotQ, kTargetCast, false, false, kCollidesWithNothing);
+		Q->SetOverrideRange(600);
+	}
+	// W ability
+	if (W == nullptr)
+	{
+		W = GPluginSDK->CreateSpell2(kSlotW, kTargetCast, false, false, kCollidesWithNothing);
+	}
+	// E ability
+	if (E == nullptr)
+	{
+		E = GPluginSDK->CreateSpell2(kSlotE, kTargetCast, false, false, kCollidesWithNothing);
+	}
+	// R ability
+	if (R == nullptr)
+	{
+		R = GPluginSDK->CreateSpell2(kSlotR, kTargetCast, false, false, kCollidesWithNothing);
+	}
+	if (Smite == nullptr) // lol they're not playing right if they didnt take smite hehexd
+	{
+		if (strstr(SummonerSpell1, "SummonerSmite"))
+		{
+			Smite = GPluginSDK->CreateSpell2(kSummonerSlot1, kTargetCast, false, false, kCollidesWithNothing);
+		}
+		if (strstr(SummonerSpell2, "SummonerSmite"))
+		{
+			Smite = GPluginSDK->CreateSpell2(kSummonerSlot2, kTargetCast, false, false, kCollidesWithNothing);
+		}
+	}
+	MasterYiMenu = GPluginSDK->AddMenu("Master Yi");
+	JungleMenu = MasterYiMenu->AddMenu("Jungle Clear");
+	SmiteJung = JungleMenu->CheckBox("Use Smite", true);
+
+
+
+}
+
+void MasterYi::JungleClear()
+{
+	for (auto pCreep : GEntityList->GetAllMinions(false, false, true))
+	{
+		if (!pCreep->IsDead() && pCreep != nullptr)
+		{
+
+			auto targetCreep = GTargetSelector->FindTarget(LowestHealthPriority, PhysicalDamage, 600);
+			float flDistance = targetCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+			if (flDistance < 500 && Q->IsReady())
+			{
+				Q->CastOnTarget(targetCreep, kHitChanceMedium);
+			}
+			if (flDistance < 200 && E->IsReady())
+			{
+				E->CastOnPlayer();
+			}
+			if (GEntityList->Player()->HealthPercent() < 7 && W->IsReady())
+			{
+				W->CastOnPlayer();
+			}
+			if (SmiteJung->Enabled() && Smite != nullptr)
+			{
+				if (strstr(pCreep->GetObjectName(), "Red") || strstr(pCreep->GetObjectName(), "Blue") || strstr(pCreep->GetObjectName(), "Baron") || strstr(pCreep->GetObjectName(), "Rift") || strstr(pCreep->GetObjectName(), "Dragon"))
+				{
+					if (pCreep->GetHealth() <= GDamage->GetSummonerSpellDamage(GEntityList->Player(), pCreep, kSummonerSpellSmite))
+					{
+						Smite->CastOnUnit(pCreep);
+					}
+				}
+			}
+		}
+	}
+}
+
+void MasterYi::Combo()
+{
+
+}
+
+void MasterYi::OnGameUpdate()
+{
+
+}
+
+void MasterYi::OnRender()
+{
+
+}
+
+void MasterYi::OnSpellCast(CastedSpell const& Args)
+{
+
+}
+bool MasterYi::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
+{
+	return true;
+}
+
+void MasterYi::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
+{
+
+}
+

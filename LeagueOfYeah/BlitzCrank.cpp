@@ -31,9 +31,6 @@ BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	// Menu Options
 	ComboMenu->AddMenu("Combo");
 
-
-	HarassMenu->AddMenu("Harass");
-
 	Drawings->AddMenu("Drawings");
 	DrawHookRange = Drawings->CheckBox("Draw Hook Range", true);
 	DrawRRange = Drawings->CheckBox("Draw R Range", true);

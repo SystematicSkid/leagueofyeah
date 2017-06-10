@@ -50,6 +50,9 @@ protected:
 	 ISpell2*		W;
 	 ISpell2*		E;
 	 ISpell2*		R;
+	 ISpell2*		Smite;
+	 ISpell2*		Ignite;
+	 ISpell2*		Heal;
 	short			keystate;
 	IUnit*			ComboTarget;
 	bool			SemiManualKey;

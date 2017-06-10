@@ -38,7 +38,6 @@ private:
 	IMenu* Drawings;
 	IMenu* Misc;
 	IMenu* LaneClearMenu;
-	IMenu* HarassMenu;
 	IMenu* ComboMenu;
 	IMenu* HookSettings;
 
