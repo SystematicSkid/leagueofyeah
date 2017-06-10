@@ -5,6 +5,17 @@ MasterYi::~MasterYi() // We dont want our script to stay around
 	MasterYiMenu->Remove();
 }
 
+
+
+
+/*
+TODO LIST
+Add Item Usage
+Add R Usage
+Add combo
+Add W AA reset
+*/
+
 MasterYi::MasterYi(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 {
 	auto SummonerSpell1 = GPluginSDK->GetEntityList()->Player()->GetSpellName(kSummonerSlot1);
