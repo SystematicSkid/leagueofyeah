@@ -192,7 +192,14 @@ inline bool GetSegmentSegmentIntersections(
 	Vec2 out;
 	return GetSegmentSegmentIntersections(ToVec2(lineSegment1Start), ToVec2(lineSegment1End), ToVec2(lineSegment2Start), ToVec2(lineSegment2End), out);
 }
-/*
+
+auto IsInRange(Vec3 PositionA, Vec3 PositionB, float Range) -> bool
+{
+	Vec2 DistanceVector = Vec2(PositionA.x - PositionB.x, PositionA.z - PositionB.z);
+
+	return DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y - Range * Range < 0;
+}
+
 std::vector<IUnit*> GetMinionsNearby(bool friendly, bool enemy, bool neutral)
 {
 	auto minions = GEntityList->GetAllMinions(friendly, enemy, neutral);
@@ -201,4 +208,4 @@ std::vector<IUnit*> GetMinionsNearby(bool friendly, bool enemy, bool neutral)
 	minions.erase(std::remove_if(minions.begin(), minions.end(), [&](IUnit* m) { return !m || m->IsDead() || !local->IsValidTarget(m, local->AttackRange()); }));
 
 	return minions;
-}*/
+}

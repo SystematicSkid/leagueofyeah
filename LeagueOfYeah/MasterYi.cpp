@@ -48,6 +48,9 @@ MasterYi::MasterYi(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	HealJung = JungleMenu->CheckBox("Heal if Low", true);
 	LowHP = JungleMenu->AddInteger("Minimum Health", 1, 99, 10);
 
+	LaneClearMenu = MasterYiMenu->AddMenu("Lane Clear");
+	QLane = LaneClearMenu->CheckBox("Use Q", true);
+	ELane = LaneClearMenu->CheckBox("Use E", false);
 
 
 }
@@ -82,6 +85,34 @@ void MasterYi::JungleClear()
 						Smite->CastOnUnit(pCreep);
 					}
 				}
+			}
+		}
+	}
+}
+
+void MasterYi::LaneClear()
+{
+	for (auto pMinion : GPluginSDK->GetEntityList()->GetAllMinions(false, true, false))
+	{
+		if (pMinion = nullptr)
+			continue;
+		if(pMinion->IsDead())
+			continue;
+
+		auto minion = GTargetSelector->FindTarget(ClosestPriority, PhysicalDamage, GEntityList->Player()->AttackRange()); // We use closest so we dont get fucked over by any possible enemy laner
+		float flDistance = minion->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+		if (flDistance > Q->Range())
+			continue;
+		std::vector<IUnit*> Close = GetMinionsNearby(false, true, false);
+		if (Q->IsReady() && QLane->Enabled() && Close.size() >= 3)
+			Q->CastOnUnit(minion);
+
+		if (E->IsReady() && ELane)
+		{
+			
+			if (Close.size() >= 2)
+			{
+				E->CastOnPlayer();
 			}
 		}
 	}

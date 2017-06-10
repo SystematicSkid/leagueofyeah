@@ -1,5 +1,9 @@
 #pragma once
+#include <vector>
+#include <algorithm>
+#include <iostream>
 #include "AIO.h"
+#include "Geom.h"
 
 class MasterYi : public virtual Champion
 {
@@ -42,5 +46,8 @@ private:
 	IMenuOption* LowHP;
 	IMenuOption* QJung;
 	IMenuOption* EJung;
+
+	IMenuOption* QLane;
+	IMenuOption* ELane;
 
 };
