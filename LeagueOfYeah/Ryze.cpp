@@ -39,10 +39,10 @@ Ryze::Ryze(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 		{
 			if (!enemy->IsDead() && enemy != nullptr)
 			{
-				float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+				float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());  // Find Position Of enemy + Q 
 				if (Q->IsReady() && enemy->IsValidTarget() && flDistance < 1000.f)
 				{
-					AdvPredictionOutput PredOut;
+					AdvPredictionOutput PredOut; // Prediction
 					Q->RunPrediction(enemy, false, kCollidesWithMinions, &PredOut);
 					if (PredOut.HitChance != kHitChanceCollision && PredOut.HitChance >= kHitChanceHigh) 
 					{
@@ -55,7 +55,7 @@ Ryze::Ryze(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 				if (E->IsReady() && flDistance <= 615.f)
 					E->CastOnTarget(enemy);
 
-				if (W->IsReady() && enemy->HasBuff("flux"))
+				if (W->IsReady() && enemy->HasBuff("Flux"))
 					W->CastOnTarget(enemy);
 
 				if (Q->IsReady() && enemy->IsValidTarget() && flDistance < 1000.f)
@@ -71,31 +71,109 @@ Ryze::Ryze(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 					}
 				}
 			}
+			
+
+
 
 		}
+	}
 
-}
+	LaneClear->AddMenu("LaneClear")
+		void Ryze::LaneClear() // Find Target Minion, E Target, Wait Out cooldown, If E ready, E Target w Buff "Flux"
+	{
+		for (auto pCreep : GetEntityList()->GetAllMinions(false, true, true))
+		{
+			if (pCreep != nullptr)
+			{
+				float flDistance = pCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+				if (E->IsReady() && flDistance <= 615 && pCreep->GetHealth() < GDamage->GetSpellDamage(GEntityList->Player(), kSlotE))
+				{
+					if (E->CastOnPlayer())
+					{
+						GOrbwalking->SetOverrideTarget(pCreep);
+					}
+				}
+			}
+		}
+	}
+	/*auto IsInRange(Vec2 PositionA, Vec2 PositionB, float Range) -> bool
+	{
+		Vec2 DistanceVector = Vec2(PositionA.x - PositionB.x, PositionA.y - PositionB.y);
+
+		return DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y - Range * Range < 0;
+	}
+
+	auto IsInRange(Vec3 PositionA, Vec3 PositionB, float Range) -> bool
+	{
+		Vec2 DistanceVector = Vec2(PositionA.x - PositionB.x, PositionA.z - PositionB.z);
+
+		return DistanceVector.x * DistanceVector.x + DistanceVector.y * DistanceVector.y - Range * Range < 0;
+	}
+
+	auto FindBestLineCastPosition(std::vector<Vec3> RangeCheckFroms, float range, float castrange, float radius, bool Minions, bool Heroes, FarmLocation& Output) -> void
+	{
+		FarmLocation result;
+		result.HitCount = 0;
+		for (Vec3 RangeCheckFrom : RangeCheckFroms)
+		{
+			std::vector<IUnit*> targets, casttargets;
+
+			if (Minions)
+			{
+				for (auto Minion : GEntityList->GetAllMinions(false, true, false))
+				{
+					if (!Minion->IsValidTarget() || Minion->IsWard())
+						continue;
+
+					if (IsInRange(RangeCheckFrom, Minion->GetPosition(), range)) targets.push_back(Minion);
+					if (IsInRange(RangeCheckFrom, Minion->GetPosition(), castrange)) casttargets.push_back(Minion);
+				}
+			}
+
+			if (Heroes)
+			{
+				for (auto Champ : GEntityList->GetAllHeros(false, true))
+				{
+					if (!Champ->IsValidTarget() || Champ->IsClone())
+						continue;
+
+					if (IsInRange(RangeCheckFrom, Champ->GetPosition(), range)) targets.push_back(Champ);
+					if (IsInRange(RangeCheckFrom, Champ->GetPosition(), castrange)) casttargets.push_back(Champ);
+				}
+			}
+
+			for (auto target : casttargets)
+			{
+				Vec3 endpos = RangeCheckFrom.Extend(target->GetPosition(), range);
+				std::vector<IUnit*> UnitsHitHolder;
+				int count = 0;
+				for (auto i : targets)
+				{
+					if (Distance(i->GetPosition(), Extend(RangeCheckFrom, endpos, -radius / 2), Extend(endpos, RangeCheckFrom, -radius / 2), true) <= radius / 2 + i->BoundingRadius())
+					{
+						count++;
+						UnitsHitHolder.push_back(i);
+					}
+				}
+				if (count > result.HitCount)
+				{
+					result.HitCount = count;
+					result.CastPosition = endpos;
+					result.CastPositionFrom = RangeCheckFrom;
+					result.CastOnUnit = target;
+					result.UnitsHit = UnitsHitHolder;
+				}
+			}
+		}
+		Output = result;
+	}*/ // Dont Know if I need this
+
 	void Ryze::OnGameUpdate()
 	{
 		if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeCombo)
 			Ryze::Combo();
+
+		if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeLaneClear)
+			Ryze::LaneClear();
 	}
-
-	void Ryze::OnRender()
-	{
-
-	}
-
-	void Ryze::OnSpellCast(CastedSpell const& Args)
-	{
-
-	}
-	bool Ryze::OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition)
-	{
-		return true;
-	}
-
-	void Ryze::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
-	{
-
-	}
+	
