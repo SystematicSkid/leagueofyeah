@@ -231,6 +231,12 @@ PLUGIN_API void OnLoad(IPluginSDK* PluginSDK)
 		ChampSelect = new LeeSin(TopLevel, LocalChamp); // TODO
 	else if (strstr(LocalChamp->ChampionName(), "Blitzcrank"))
 		ChampSelect = new BlitzCrank(TopLevel, LocalChamp);
+	else if (strstr(LocalChamp->ChampionName(), "Master Yi"))
+		ChampSelect = new MasterYi(TopLevel, LocalChamp);
+	else if (strstr(LocalChamp->ChampionName(), "Zilean"))
+		ChampSelect = new Zilean(TopLevel, LocalChamp);
+	else if (strstr(LocalChamp->ChampionName(), "Ryze"))
+		ChampSelect = new Ryze(TopLevel, LocalChamp);
 
 
 	AddEvents();
