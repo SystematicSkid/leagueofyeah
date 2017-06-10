@@ -42,7 +42,11 @@ MasterYi::MasterYi(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	}
 	MasterYiMenu = GPluginSDK->AddMenu("Master Yi");
 	JungleMenu = MasterYiMenu->AddMenu("Jungle Clear");
+	QJung = JungleMenu->CheckBox("Use Q", true);
+	EJung = JungleMenu->CheckBox("Use E", true);
 	SmiteJung = JungleMenu->CheckBox("Use Smite", true);
+	HealJung = JungleMenu->CheckBox("Heal if Low", true);
+	LowHP = JungleMenu->AddInteger("Minimum Health", 1, 99, 10);
 
 
 
@@ -57,15 +61,15 @@ void MasterYi::JungleClear()
 
 			auto targetCreep = GTargetSelector->FindTarget(LowestHealthPriority, PhysicalDamage, 600);
 			float flDistance = targetCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
-			if (flDistance < 500 && Q->IsReady())
+			if (flDistance < 500 && Q->IsReady() && QJung->Enabled())
 			{
 				Q->CastOnTarget(targetCreep, kHitChanceMedium);
 			}
-			if (flDistance < 200 && E->IsReady())
+			if (flDistance < 200 && E->IsReady() && EJung->Enabled())
 			{
 				E->CastOnPlayer();
 			}
-			if (GEntityList->Player()->HealthPercent() < 7 && W->IsReady())
+			if (GEntityList->Player()->HealthPercent() < LowHP->GetInteger() && W->IsReady() && HealJung->Enabled())
 			{
 				W->CastOnPlayer();
 			}

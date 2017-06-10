@@ -38,5 +38,9 @@ private:
 	IMenu* ComboMenu;
 
 	IMenuOption* SmiteJung;
+	IMenuOption* HealJung;
+	IMenuOption* LowHP;
+	IMenuOption* QJung;
+	IMenuOption* EJung;
 
 };
