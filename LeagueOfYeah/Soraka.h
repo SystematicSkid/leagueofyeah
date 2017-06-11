@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "AIO.h"
 
 class Soraka : public virtual Champion
@@ -10,6 +11,9 @@ public:
 	void Combo();
 	void Harass();
 	void LaneClear();
+
+	//Math Needed
+	std::vector<IUnit*> GetHerosNearby(bool friendly, bool enemy, float distance, IUnit* source);
 
 	void OnGameUpdate();
 	void OnRender();
