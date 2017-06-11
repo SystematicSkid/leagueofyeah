@@ -135,7 +135,33 @@ void MasterYi::LaneClear()
 
 void MasterYi::Combo()
 {
+	for (auto pEnemy : GPluginSDK->GetEntityList()->GetAllHeros(false, true))
+	{
+		if(pEnemy == nullptr || pEnemy->IsDead())
+			continue;
+		IUnit* enemy = nullptr;
+		if(Q->IsReady())
+			 enemy = GTargetSelector->FindTarget(LowestHealthPriority, PhysicalDamage, Q->Range());
+		else if(!Q->IsReady())
+			 enemy = GTargetSelector->FindTarget(LowestHealthPriority, PhysicalDamage, GEntityList->Player()->AttackRange());
 
+		float flDistance = enemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+		if (enemy)
+		{
+			if(flDistance > 800)
+				continue;
+			if (R->IsReady())
+				R->CastOnPlayer();
+			if (E->IsReady())
+				E->CastOnPlayer();
+			if (Q->IsReady() && flDistance <= Q->Range())
+				Q->CastOnUnit(enemy);
+
+			if (GEntityList->Player()->HealthPercent() < 10 && !GUtility->IsPositionUnderTurret(GEntityList->Player()->GetPosition(), false, true))
+				W->CastOnPlayer();
+
+		}
+	}
 }
 
 void MasterYi::Harass()
@@ -144,7 +170,7 @@ void MasterYi::Harass()
 	{
 		for (auto pEnemy : GEntityList->GetAllHeros(false, true))
 		{
-			if (pEnemy != nullptr || pMinions != nullptr)
+			if (pEnemy == nullptr || pMinions == nullptr)
 				continue;
 			if(pEnemy->IsDead() || pMinions->IsDead())
 			continue;

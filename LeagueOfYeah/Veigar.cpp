@@ -62,7 +62,7 @@ void Veigar::RCast()
 			{
 				R->CastOnUnit(pEnemy);
 			}
-				
+
 
 		}
 	}
@@ -75,11 +75,11 @@ void Veigar::OnRender()
 		if (DrawRRange->Enabled() && R->IsReady())
 			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 255, 255), R->Radius());
 
-			if (DrawQRange->Enabled() && Q->IsReady())
-				GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 0, 0, 255), Q->Radius());
+		if (DrawQRange->Enabled() && Q->IsReady())
+			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 0, 0, 255), Q->Radius());
 
-				if (DrawERange->Enabled() && E->IsReady())
-					GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 0, 0), E->Radius());
+		if (DrawERange->Enabled() && E->IsReady())
+			GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 0, 0), E->Radius());
 	}
 }
 
