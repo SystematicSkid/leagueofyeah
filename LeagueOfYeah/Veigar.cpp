@@ -51,6 +51,13 @@ Veigar::Veigar(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 
 }
 
+
+void Veigar::Combo()
+{
+
+}
+
+
 void Veigar::RCast()
 {
 	for (auto pEnemy : GPluginSDK->GetEntityList()->GetAllHeros(false, true))
@@ -97,5 +104,8 @@ void Veigar::OnOrbwalkAttack(IUnit* Source, IUnit* Target)
 
 }
 
+void Veigar::OnGameUpdate()
+{
 
+}
 

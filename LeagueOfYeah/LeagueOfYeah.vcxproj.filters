@@ -60,6 +60,9 @@
     <ClInclude Include="Veigar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Soraka.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\PluginSDK.cpp">
@@ -87,6 +90,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Veigar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Soraka.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
