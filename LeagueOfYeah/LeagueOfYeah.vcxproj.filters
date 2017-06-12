@@ -39,6 +39,36 @@
     <ClInclude Include="Yeah.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LeeSin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlitzCrank.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Geom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Zilean.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterYi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ryze.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Veigar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Soraka.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaco.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="SDK\PluginSDK.cpp">
@@ -50,5 +80,34 @@
     <ClCompile Include="Yeah.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LeeSin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlitzCrank.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Zilean.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterYi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ryze.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Soraka.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Veigarcpp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaco.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="~TODOLIST.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

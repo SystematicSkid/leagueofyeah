@@ -2,6 +2,13 @@
 #include "SDK/PluginSDK.h"
 #include "AIO.h"
 
+//Champions
+#include "LeeSin.h"
+#include "BlitzCrank.h"
+#include "MasterYi.h"
+#include "Zilean.h"
+#include "Ryze.h"
+
 IMenu* TopLevel;
-AIO* ChampSelect;
+Champion* ChampSelect;
 IUnit* LocalChamp;

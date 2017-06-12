@@ -1,0 +1,23 @@
+===============================
+=		  TODO LIST			  =
+=	   SORTED BY CHAMP		  =
+===============================
+
+======== Champs that Need Item Usage ========
+BlitzCrank
+Master Yi
+Shaco
+==============================================
+
+======= Champs that simply need more work ===
+Shaco
+Ryze
+Veigar
+Lee Sin
+=============================================
+
+Other Note: Please constantly check for a new pull from github :)
+
+Please work on these and message me on steam or discord
+~ Seb
+
