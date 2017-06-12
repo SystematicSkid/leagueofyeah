@@ -122,6 +122,7 @@
     <ClInclude Include="SDK\PluginData.h" />
     <ClInclude Include="SDK\PluginSDK.h" />
     <ClInclude Include="SDK\Vector3.h" />
+    <ClInclude Include="Shaco.h" />
     <ClInclude Include="Soraka.h" />
     <ClInclude Include="Veigar.h" />
     <ClInclude Include="Yeah.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="LeeSin.cpp" />
     <ClCompile Include="MasterYi.cpp" />
     <ClCompile Include="Ryze.cpp" />
+    <ClCompile Include="Shaco.cpp" />
     <ClCompile Include="Soraka.cpp" />
     <ClCompile Include="Veigarcpp.cpp" />
     <ClCompile Include="Yeah.cpp" />
