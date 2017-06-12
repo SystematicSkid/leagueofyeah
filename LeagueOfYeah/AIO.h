@@ -1,26 +1,30 @@
 #pragma once
 #include "SDK\PluginSDK.h"
 
+#define SAFE_DELETE(x) if(x) { delete x; x = NULL; }
+
 struct EnemyTeleportInformation
 {
 	IUnit*	Player;
-	bool IsRecalling;
-	float CompletionTime;
+	bool	IsRecalling;
+	float	CompletionTime;
 
-	float LastSeenTime;
-	float MovementRadius;
+	float	LastSeenTime;
+	float	MovementRadius;
 	std::vector<Vec3> WayPts;
 };
 
 enum Champions
 {
-	LEESIN, BLITZCRANK, ZILEAN
+	LEESIN, 
+	BLITZCRANK, 
+	ZILEAN
 };
 
 class Champion
 {
 public:
-	Champion(IMenu* Parent, IUnit* Hero) :Hero(Hero), ParentMenu(Parent) {}
+	Champion(IMenu* Parent, IUnit* Hero) : Hero(Hero), ParentMenu(Parent) {}
 	~Champion();
 
 	IUnit * GetHero();
@@ -28,8 +32,8 @@ public:
 
 	virtual void Combo() {};
 	//events
-	virtual void OnGameUpdate();
-	virtual void OnRender();
+	virtual void OnGameUpdate() = 0;
+	virtual void OnRender() = 0;
 	virtual void OnRealSpellCast(CastedSpell const& Args);
 	virtual void OnSpellCast(CastedSpell const& Args);
 	virtual bool OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition);
@@ -46,13 +50,13 @@ protected:
 	std::vector<IUnit*>	EnemyHeros;
 	IUnit*			Hero;
 	IMenu*			ParentMenu;
-	 ISpell2*		Q;
-	 ISpell2*		W;
-	 ISpell2*		E;
-	 ISpell2*		R;
-	 ISpell2*		Smite;
-	 ISpell2*		Ignite;
-	 ISpell2*		Heal;
+	ISpell2*		Q;
+	ISpell2*		W;
+	ISpell2*		E;
+	ISpell2*		R;
+	ISpell2*		Smite;
+	ISpell2*		Ignite;
+	ISpell2*		Heal;
 	short			keystate;
 	IUnit*			ComboTarget;
 	bool			SemiManualKey;

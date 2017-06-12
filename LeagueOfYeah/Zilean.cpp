@@ -12,16 +12,16 @@ Zilean::Zilean(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 		Q = GPluginSDK->CreateSpell2(kSlotQ, kCircleCast, true, true, kCollidesWithHeroes | kCollidesWithMinions);
 		Q->SetSkillshot(0.25f, 300.f, 0.f, 900.f);
 	}
-	if (W = nullptr)
+	if (W == nullptr)
 	{
 		W = GPluginSDK->CreateSpell2(kSlotW, kTargetCast, false, false, kCollidesWithNothing);
 	}
-	if (E = nullptr)
+	if (E == nullptr)
 	{
 		E = GPluginSDK->CreateSpell2(kSlotE, kTargetCast, false, false, kCollidesWithNothing);
 		E->SetOverrideRange(550.f);
 	}
-	if (R = nullptr)
+	if (R == nullptr)
 	{
 		R = GPluginSDK->CreateSpell2(kSlotR, kTargetCast, false, false, kCollidesWithNothing);
 		R->SetOverrideRange(900.f);

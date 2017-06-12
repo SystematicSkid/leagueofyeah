@@ -13,17 +13,17 @@ Ryze::Ryze(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 		Q = GPluginSDK->CreateSpell2(kSlotQ, kLineCast, true, false, kCollidesWithHeroes | kCollidesWithMinions);
 		Q->SetSkillshot(0.f, 0.25f, 0.f, 1000.f);
 	}
-	if (W = nullptr)
+	if (W == nullptr)
 	{
 		W = GPluginSDK->CreateSpell2(kSlotW, kTargetCast, false, false, kCollidesWithNothing);
 		W->SetOverrideRange(615.f);
 	}
-	if (E = nullptr)
+	if (E == nullptr)
 	{
 		E = GPluginSDK->CreateSpell2(kSlotE, kTargetCast, true, false, kCollidesWithHeroes | kCollidesWithMinions);
 		E->SetOverrideRange(615.f);
 	}
-	if (R = nullptr)
+	if (R == nullptr)
 	{
 		R = GPluginSDK->CreateSpell2(kSlotR, kCircleCast, false, true, kCollidesWithHeroes | kCollidesWithMinions);
 		R->SetOverrideRange(1750.f);

@@ -6,7 +6,7 @@ class Soraka : public virtual Champion
 {
 public:
 	Soraka(IMenu* Parent, IUnit* Hero);
-	~Soraka(); //deconstruct this
+	~Soraka(); //deconstruct this NIBBA
 
 	void Combo();
 	void Harass();
@@ -17,7 +17,6 @@ public:
 	void TalismanUse();
 	void ZekesUse();
 
-	//Math Needed
 	std::vector<IUnit*> GetHerosNearby(bool friendly, bool enemy, float distance, IUnit* source);
 
 	void OnGameUpdate();
