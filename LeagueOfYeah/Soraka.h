@@ -12,6 +12,8 @@ public:
 	void Harass();
 	void LaneClear();
 
+	void RedemptionUse();
+
 	//Math Needed
 	std::vector<IUnit*> GetHerosNearby(bool friendly, bool enemy, float distance, IUnit* source);
 
@@ -22,6 +24,11 @@ public:
 	bool OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition);
 
 private:
+	IInventoryItem* Mikaels;
+	IInventoryItem* Tear;
+	IInventoryItem* Staff;
+	IInventoryItem* Redemption;
+
 	IMenu* SorakaMenu;
 	IMenu* Drawings;
 	IMenu* Misc;

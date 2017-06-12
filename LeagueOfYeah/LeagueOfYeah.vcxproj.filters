@@ -89,10 +89,10 @@
     <ClCompile Include="Ryze.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Veigar.cpp">
+    <ClCompile Include="Soraka.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Soraka.cpp">
+    <ClCompile Include="Veigarcpp.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

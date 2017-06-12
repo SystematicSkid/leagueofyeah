@@ -144,13 +144,61 @@ void Soraka::Combo()
 }
 
 
-void Soraka::LaneClear() // Find Target Minion, E Target, Wait Out cooldown, If E ready, E Target w Buff "Flux"
+void Soraka::LaneClear()
 {
 	
 }
 
+void Soraka::RedemptionUse()
+{
+	for (auto pChamp : GEntityList->GetAllHeros(true, true))
+	{
+		if(pChamp == nullptr)
+			continue;
+		if(pChamp->IsDead())
+			continue;
+		if (pChamp->GetTeam() != GEntityList->Player()->GetTeam()) // Filter only friendly champs
+			continue;
+		if(pChamp->HealthPercent() > 20) // use higher % because redemption has some windup time, like 2s or something
+			continue;
+		auto lowestally = GTargetSelector->FindTarget(LowestHealthPriority, TrueDamage, 5500);
+		if (lowestally->GetTeam() != GEntityList->Player()->GetTeam())
+			return;
+		std::vector<IUnit*> NearbyEnemy = GetHerosNearby(false, true, 500, lowestally); // this works because they have their own loop within the function... i think
+		std::vector<IUnit*> NearbyAlly = GetHerosNearby(true, false, 500, lowestally);
+
+		if(NearbyEnemy.size() > 1 && NearbyAlly.size() == 0)
+			continue;
+		if(lowestally->HasBuff("UndyingRage")) // lmao fuck tryndamere mains lol
+			continue;
+
+		if (NearbyAlly.size() > 1 || (lowestally->HealthPercent() <= 15 /* 15 for windup time */ && NearbyEnemy.size() == 1)) // dont want to use it on just just one nigga alone unless he rly needs it
+			Redemption->CastOnPosition(lowestally->GetPosition());
+	
+	}
+}
+
 void Soraka::OnGameUpdate()
 {
+	// Shit for Tear and Archangels
+	Tear = GPluginSDK->CreateItemForId(3070, 0);
+	Staff = GPluginSDK->CreateItemForId(3003, 0);
+	Redemption = GPluginSDK->CreateItemForId(3107, 5500);
+
+	if (GUtility->IsPositionInFountain(GEntityList->Player()->ServerPosition(), true, false))
+	{
+		if (Tear->IsOwned() || Staff->IsOwned())
+		{
+			Q->CastOnPosition(GEntityList->Player()->GetPosition());
+
+			E->CastOnPosition(GEntityList->Player()->GetPosition());
+		}
+	}
+	if (Redemption->IsOwned() && Redemption->IsReady())
+	{
+		RedemptionUse();
+	}
+	// End Tear memes
 	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeCombo)
 		Soraka::Combo();
 
