@@ -14,6 +14,8 @@ public:
 
 	void RedemptionUse();
 	void LocketUse();
+	void TalismanUse();
+	void ZekesUse();
 
 	//Math Needed
 	std::vector<IUnit*> GetHerosNearby(bool friendly, bool enemy, float distance, IUnit* source);
@@ -30,6 +32,8 @@ private:
 	IInventoryItem* Staff;
 	IInventoryItem* Redemption;
 	IInventoryItem* Locket;
+	IInventoryItem* TalismanAscension;
+	IInventoryItem* Zekes;
 
 	IMenu* SorakaMenu;
 	IMenu* Drawings;

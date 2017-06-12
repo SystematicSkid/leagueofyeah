@@ -9,7 +9,7 @@ Soraka::Soraka(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 {
 	if (Q == nullptr)
 	{
-		Q = GPluginSDK->CreateSpell2(kSlotQ, kCircleCast, false, true, kCollidesWithNothing);
+		Q = GPluginSDK->CreateSpell2(kSlotQ, kCircleCast, false, true, kCollidesWithNothing|kCollidesWithYasuoWall);
 		Q->SetOverrideDelay(.50f);
 		Q->SetOverrideRadius(235.f);
 		Q->SetOverrideRange(800.f);
@@ -187,10 +187,42 @@ void Soraka::LocketUse()
 		if(pChamp == nullptr || pChamp->IsDead())
 			continue;
 
-		std::vector<IUnit*> NearbyEnemy = GetHerosNearby(false, true, 1000, GEntityList->Player()); // this works because they have their own loop within the function... i think
+		std::vector<IUnit*> NearbyEnemy = GetHerosNearby(false, true, 1000, GEntityList->Player());
 		std::vector<IUnit*> NearbyAlly = GetHerosNearby(true, false, 600, GEntityList->Player());
 		if (NearbyAlly.size() >= 3 && NearbyEnemy.size() >= 3)
 			Locket->CastOnPlayer();
+	}
+}
+
+void Soraka::TalismanUse()
+{
+	for (auto pChamp : GPluginSDK->GetEntityList()->GetAllHeros(true, true))
+	{
+		if (pChamp == nullptr || pChamp->IsDead())
+			continue;
+
+		std::vector<IUnit*> NearbyEnemy = GetHerosNearby(false, true, 600, GEntityList->Player());
+		std::vector<IUnit*> NearbyAlly = GetHerosNearby(true, false, 600, GEntityList->Player());
+		if (NearbyAlly.size() >= 3 && NearbyEnemy.size() >= 3)
+			Locket->CastOnPlayer();
+	}
+}
+
+void Soraka::ZekesUse()
+{
+	for (auto pAlly : GPluginSDK->GetEntityList()->GetAllHeros(true, false))
+	{
+		if(pAlly == nullptr)
+			continue;
+		if(pAlly->IsDead())
+			continue;
+		IUnit* ally = GTargetSelector->FindTarget(MostAD, PhysicalDamage, 500);
+		float flDistance = pAlly->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+		if (flDistance > 500)
+			return;
+		else
+			Zekes->CastOnTarget(ally);
+
 	}
 }
 
@@ -201,6 +233,8 @@ void Soraka::OnGameUpdate()
 	Staff = GPluginSDK->CreateItemForId(3003, 0);
 	Redemption = GPluginSDK->CreateItemForId(3107, 5500);
 	Locket = GPluginSDK->CreateItemForId(3190, 600);
+	TalismanAscension = GPluginSDK->CreateItemForId(3069, 600);
+	Zekes = GPluginSDK->CreateItemForId(3050, 1000);
 
 	if (GUtility->IsPositionInFountain(GEntityList->Player()->ServerPosition(), true, false))
 	{
@@ -218,6 +252,14 @@ void Soraka::OnGameUpdate()
 	if (Locket->IsOwned() && Locket->IsReady())
 	{
 		LocketUse();
+	}
+	if (TalismanAscension->IsOwned && TalismanAscension->IsReady())
+	{
+		TalismanUse();
+	}
+	if (Zekes->IsOwned() && Zekes->IsReady())
+	{
+		ZekesUse();
 	}
 	// End Tear memes
 	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeCombo)
