@@ -5,10 +5,10 @@
 
 struct FarmLocation
 {
-	Vec3 CastPosition;
-	Vec3 CastPositionFrom;
-	int HitCount = 0;
-	IUnit* CastOnUnit = nullptr;
+	Vec3	CastPosition;
+	Vec3	CastPositionFrom;
+	int		HitCount	= 0;
+	IUnit*	CastOnUnit	= nullptr;
 	std::vector<IUnit*> UnitsHit;
 };
 

@@ -10,13 +10,13 @@ LeeSin::LeeSin(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 	if (Q == nullptr)
 	{
 		Q = GPluginSDK->CreateSpell2(kSlotQ, kLineCast, true, false, kCollidesWithMinions | kCollidesWithHeroes);
-		Q->SetSkillshot(0.25, 0, 1750, 1100);
+		Q->SetSkillshot(0.25f, 0, 1750, 1100);
 	} 
 	// W ability
 	if (W == nullptr)
 	{
 		W = GPluginSDK->CreateSpell2(kSlotW, kTargetCast, false, false, kCollidesWithNothing);
-		W->SetSkillshot(0.2, 0, 0, 700);
+		W->SetSkillshot(0.2f, 0, 0, 700);
 	}
 	// E ability
 	if (E == nullptr)

@@ -19,22 +19,10 @@ public:
 	bool OnPreCast(int Slot, IUnit* Target, Vec3* StartPosition, Vec3* EndPosition);
 
 private:
-	//general menu settings
 	IMenu* LeeMenu;
-
-	//draw menu settings
 	IMenu* Drawings;
-
-	//misc menu settings
 	IMenu* Misc;
-
-	//laneclear menu settings
 	IMenu* LaneClearMenu;
-
-	//harass menu settings
 	IMenu* HarassMenu;
-
-	//combo menu settings
 	IMenu* ComboMenu;
-
 };

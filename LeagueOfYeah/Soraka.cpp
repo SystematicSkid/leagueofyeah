@@ -14,17 +14,17 @@ Soraka::Soraka(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
 		Q->SetOverrideRadius(235.f);
 		Q->SetOverrideRange(800.f);
 	}
-	if (W = nullptr)
+	if (W == nullptr)
 	{
 		W = GPluginSDK->CreateSpell2(kSlotW, kTargetCast, false, false, kCollidesWithNothing);
 		W->SetOverrideRange(500);
 	}
-	if (E = nullptr)
+	if (E == nullptr)
 	{
 		E = GPluginSDK->CreateSpell2(kSlotE, kConeCast, false, true, kCollidesWithNothing);
 		E->SetOverrideRange(925.f);
 	}
-	if (R = nullptr)
+	if (R == nullptr)
 	{
 		R = GPluginSDK->CreateSpell2(kSlotR, kTargetCast, false, false, kCollidesWithNothing);
 		R->SetOverrideRange(FLT_MAX);

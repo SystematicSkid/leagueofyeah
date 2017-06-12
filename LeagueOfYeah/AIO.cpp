@@ -3,14 +3,11 @@
 Champion::~Champion()
 {
 	// We  want to check if the spells are actually there before we delete the memes
-	if (Q)
-		delete Q;
-	if (W)
-		delete W;
-	if (E)
-		delete E;
-	if (R)
-		delete R;
+	
+	SAFE_DELETE(Q);
+	SAFE_DELETE(W);
+	SAFE_DELETE(E);
+	SAFE_DELETE(R);
 
 	ParentMenu->Remove();
 }

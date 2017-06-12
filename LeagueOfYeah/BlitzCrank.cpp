@@ -5,45 +5,42 @@ BlitzCrank::~BlitzCrank() // We dont want our script to stay around
 	BlitzCrankMenu->Remove();
 }
 
-BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) :Champion(Parent, Hero)
+BlitzCrank::BlitzCrank(IMenu* Parent, IUnit* Hero) : Champion(Parent, Hero)
 {
 	if (Q == nullptr)
 	{
 		//Q = GPluginSDK->CreateSpell2(kSlotQ, kLineCast, true, false, kCollidesWithYasuoWall | kCollidesWithMinions);
 		//Q->SetSkillshot(0.25f, 50.f, 1750.f, 925.f);
 	}
-	if (W = nullptr)
+	if (W == nullptr)
 	{
 		W = GPluginSDK->CreateSpell2(kSlotW, kTargetCast, false, false, kCollidesWithNothing);
 	}
-	if (E = nullptr)
+	if (E == nullptr)
 	{
 		E = GPluginSDK->CreateSpell2(kSlotE, kTargetCast, false, false, kCollidesWithNothing);
 	}
-	if (R = nullptr)
+	if (R == nullptr)
 	{
 		R = GPluginSDK->CreateSpell2(kSlotR, kCircleCast, false, true, kCollidesWithNothing);
 		R->SetOverrideRadius(600);
 	}
 
-	BlitzCrankMenu = Parent->AddMenu("BlitzCrank");
-
-	// Menu Options
-	ComboMenu->AddMenu("Combo");
-
-	Drawings->AddMenu("Drawings");
-	DrawHookRange = Drawings->CheckBox("Draw Hook Range", true);
-	DrawRRange = Drawings->CheckBox("Draw R Range", true);
-	OnlyDrawReady = Drawings->CheckBox("Only Draw Ready", true);
-	LaneClearMenu->AddMenu("Lane Clear");
-	EFarm = LaneClearMenu->CheckBox("Use E", true);
-	RFarm = LaneClearMenu->CheckBox("Use R", false);
-	Misc->AddMenu("Misc.");
-	FleeKey = Misc->AddKey("Flee Key", 72);
-	UseWtoFlee = Misc->CheckBox("Use W to Flee", true);
-	HookSettings->AddMenu("Hook Settings");
-	AutoHook = HookSettings->CheckBox("Use Hook", true);
-	HookMode = HookSettings->AddSelection("Hook Chance", 0, { "Very High", "High" });
+	BlitzCrankMenu = Parent			->AddMenu("BlitzCrank");
+	ComboMenu						->AddMenu("Combo");
+	Drawings						->AddMenu("Drawings");
+	DrawHookRange	= Drawings		->CheckBox("Draw Hook Range", true);
+	DrawRRange		= Drawings		->CheckBox("Draw R Range", true);
+	OnlyDrawReady	= Drawings		->CheckBox("Only Draw Ready", true);
+	LaneClearMenu					->AddMenu("Lane Clear");
+	EFarm			= LaneClearMenu	->CheckBox("Use E", true);
+	RFarm			= LaneClearMenu	->CheckBox("Use R", false);
+	Misc							->AddMenu("Misc.");
+	FleeKey			= Misc			->AddKey("Flee Key", 72);
+	UseWtoFlee		= Misc			->CheckBox("Use W to Flee", true);
+	HookSettings					->AddMenu("Hook Settings");
+	AutoHook		= HookSettings	->CheckBox("Use Hook", true);
+	HookMode		= HookSettings	->AddSelection("Hook Chance", 0, { "Very High", "High" });
 }
 
 void BlitzCrank::Combo()
