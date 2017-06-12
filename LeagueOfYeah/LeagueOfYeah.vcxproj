@@ -117,6 +117,7 @@
     <ClInclude Include="Geom.h" />
     <ClInclude Include="LeeSin.h" />
     <ClInclude Include="MasterYi.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Ryze.h" />
     <ClInclude Include="SDK\LPPConstants.h" />
     <ClInclude Include="SDK\PluginData.h" />
@@ -140,6 +141,9 @@
     <ClCompile Include="Yeah.cpp" />
     <ClCompile Include="SDK\PluginSDK.cpp" />
     <ClCompile Include="Zilean.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="~TODOLIST.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
