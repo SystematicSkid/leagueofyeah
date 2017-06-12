@@ -90,7 +90,7 @@ void Veigar::Combo()
 		if (pEnemy != nullptr)
 		{
 			float flDistance = pEnemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
-				if (E->IsReady() && flDistance <= 650 && W->IsReady() && Q->IsReady)
+				if (E->IsReady() && flDistance <= 650 && W->IsReady() && Q->IsReady()) // Redo
 				{
 					E->CastOnUnit(pEnemy);
 						W->CastOnUnit(pEnemy);
@@ -119,6 +119,11 @@ void Veigar::OnRender()
 				if (DrawERange->Enabled() && E->IsReady())
 					GPluginSDK->GetRenderer()->DrawOutlinedCircle(GEntityList->Player()->GetPosition(), Vec4(255, 255, 0, 0), E->Radius());
 	}
+}
+
+void Veigar::OnGameUpdate()
+{
+
 }
 
 void Veigar::OnSpellCast(CastedSpell const& Args)

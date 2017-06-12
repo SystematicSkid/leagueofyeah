@@ -253,7 +253,7 @@ void Soraka::OnGameUpdate()
 	{
 		LocketUse();
 	}
-	if (TalismanAscension->IsOwned && TalismanAscension->IsReady())
+	if (TalismanAscension->IsOwned() && TalismanAscension->IsReady())
 	{
 		TalismanUse();
 	}

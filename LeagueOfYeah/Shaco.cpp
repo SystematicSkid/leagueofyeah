@@ -64,6 +64,11 @@ void Shaco::OnRender()
 	
 }
 
+void Shaco::OnGameUpdate()
+{
+
+}
+
 void Shaco::OnSpellCast(CastedSpell const& Args)
 {
 
