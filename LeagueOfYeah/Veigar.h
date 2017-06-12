@@ -1,6 +1,7 @@
 #pragma once
 #include "AIO.h"
 #include "SDK/Vector3.h"
+#include <algorithm>
 
 class Veigar : public virtual Champion
 {
@@ -33,6 +34,7 @@ private:
 	IMenuOption* DrawQRange;
 	IMenuOption* DrawERange;
 	IMenuOption* OnlyDrawReady;
+	IMenuOption* QFarm;
 	
 
 };

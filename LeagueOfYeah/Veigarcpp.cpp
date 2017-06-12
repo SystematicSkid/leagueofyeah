@@ -62,9 +62,47 @@ void Veigar::RCast()
 			{
 				R->CastOnUnit(pEnemy);
 			}
-				
+
 
 		}
+	}
+}
+
+void Veigar::Farm()
+{
+	for (auto pCreep : GEntityList->GetAllMinions(false, true, true))
+	{
+		if (pCreep != nullptr)
+		{
+			float flDistance = pCreep->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+			if (QFarm->Enabled() && flDistance < 950 && Q->IsReady() && pCreep->GetHealth() < GDamage->GetSpellDamage(GEntityList->Player(), pCreep, kSlotQ))
+			{
+				Q->CastOnUnit(pCreep);
+			}
+		}
+	}
+}
+
+void Veigar::Combo()
+{
+	for (auto pEnemy : GEntityList->GetAllHeros(false, true)) //only enemies
+	{
+		if (pEnemy != nullptr)
+		{
+			float flDistance = pEnemy->ServerPosition().DistanceTo(GEntityList->Player()->GetPosition());
+				if (E->IsReady() && flDistance <= 650 && W->IsReady() && Q->IsReady)
+				{
+					E->CastOnUnit(pEnemy);
+						W->CastOnUnit(pEnemy);
+						E->CastOnUnit(pEnemy);
+
+				}
+				if (R->IsReady() && flDistance <= 650 && pEnemy->GetHealth() <= GDamage->GetSpellDamage(GEntityList->Player(), pEnemy, kSlotR))
+				{
+					R->CastOnUnit(pEnemy);
+			}
+		}
+
 	}
 }
 
