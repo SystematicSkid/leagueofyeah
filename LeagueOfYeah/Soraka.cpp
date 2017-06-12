@@ -167,6 +167,8 @@ void Soraka::RedemptionUse()
 		std::vector<IUnit*> NearbyEnemy = GetHerosNearby(false, true, 500, lowestally); // this works because they have their own loop within the function... i think
 		std::vector<IUnit*> NearbyAlly = GetHerosNearby(true, false, 500, lowestally);
 
+		if(GUtility->IsPositionInFountain(lowestally->GetPosition(), true, true))
+			continue;
 		if(NearbyEnemy.size() > 1 && NearbyAlly.size() == 0)
 			continue;
 		if(lowestally->HasBuff("UndyingRage")) // lmao fuck tryndamere mains lol
@@ -178,12 +180,27 @@ void Soraka::RedemptionUse()
 	}
 }
 
+void Soraka::LocketUse()
+{
+	for (auto pChamp : GPluginSDK->GetEntityList()->GetAllHeros(true, true))
+	{
+		if(pChamp == nullptr || pChamp->IsDead())
+			continue;
+
+		std::vector<IUnit*> NearbyEnemy = GetHerosNearby(false, true, 1000, GEntityList->Player()); // this works because they have their own loop within the function... i think
+		std::vector<IUnit*> NearbyAlly = GetHerosNearby(true, false, 600, GEntityList->Player());
+		if (NearbyAlly.size() >= 3 && NearbyEnemy.size() >= 3)
+			Locket->CastOnPlayer();
+	}
+}
+
 void Soraka::OnGameUpdate()
 {
 	// Shit for Tear and Archangels
 	Tear = GPluginSDK->CreateItemForId(3070, 0);
 	Staff = GPluginSDK->CreateItemForId(3003, 0);
 	Redemption = GPluginSDK->CreateItemForId(3107, 5500);
+	Locket = GPluginSDK->CreateItemForId(3190, 600);
 
 	if (GUtility->IsPositionInFountain(GEntityList->Player()->ServerPosition(), true, false))
 	{
@@ -197,6 +214,10 @@ void Soraka::OnGameUpdate()
 	if (Redemption->IsOwned() && Redemption->IsReady())
 	{
 		RedemptionUse();
+	}
+	if (Locket->IsOwned() && Locket->IsReady())
+	{
+		LocketUse();
 	}
 	// End Tear memes
 	if (GPluginSDK->GetOrbwalking()->GetOrbwalkingMode() == kModeCombo)

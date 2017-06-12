@@ -13,6 +13,7 @@ public:
 	void LaneClear();
 
 	void RedemptionUse();
+	void LocketUse();
 
 	//Math Needed
 	std::vector<IUnit*> GetHerosNearby(bool friendly, bool enemy, float distance, IUnit* source);
@@ -28,6 +29,7 @@ private:
 	IInventoryItem* Tear;
 	IInventoryItem* Staff;
 	IInventoryItem* Redemption;
+	IInventoryItem* Locket;
 
 	IMenu* SorakaMenu;
 	IMenu* Drawings;
